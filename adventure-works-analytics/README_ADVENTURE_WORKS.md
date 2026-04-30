@@ -4,7 +4,7 @@ Este projeto implementa um pipeline de dados completo para análise de vendas da
 
 ## Visão Geral
 
-O projeto segue a arquitetura medallion com três camadas principais:
+The project follows the medallion architecture with three main layers:
 - **Staging**: Limpeza e padronização dos dados brutos
 - **Intermediate**: Lógica de negócio e enriquecimento
 - **Marts**: Tabelas de fatos e dimensões para consumo final
@@ -226,7 +226,7 @@ docker-compose up -d
 
 ### Problemas Comuns
 
-1. **Erro de conexão Databricks**: Verifique token e host
+1. **Databricks connection error**: Check token and host settings
 2. **Modelos não encontrados**: Execute `dbt deps`
 3. **Testes falhando**: Verifique qualidade dos dados fonte
 4. **Docker issues**: Verifique docker-compose logs
@@ -263,4 +263,4 @@ dbt debug
 Para dúvidas e suporte:
 - Documentação dbt: Acesse via `dbt docs serve`
 - Issues do projeto: GitHub Issues
-- Contato: ${TEAM_EMAIL}
+- Contact: ${TEAM_EMAIL}
