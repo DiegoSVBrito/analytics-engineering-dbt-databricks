@@ -8,8 +8,8 @@
 
 -- Gerar source YAML para tabelas existentes
 -- {{ codegen.generate_source(
---     schema_name='dev_diego_brito',
---     database_name='ted_dev',
+--     schema_name='dev_user',
+--     database_name='data_platform',
 --     generate_columns=true,
 --     include_descriptions=true
 -- ) }}
