@@ -6,8 +6,8 @@ adventure_works_analytics:
       host: "{{ env_var('DATABRICKS_HOST') }}"
       http_path: /sql/1.0/warehouses/your_warehouse_id
       token: "{{ env_var('DATABRICKS_TOKEN') }}"
-      catalog: ted_dev
-      schema: dev_diego_brito
+      catalog: data_platform
+      schema: dev_user
       threads: 4
       keepalives_idle: 240
-      search_path: "{{ env_var('DBT_DATABRICKS_SEARCH_PATH', 'ted_dev') }}"
+      search_path: "{{ env_var('DBT_DATABRICKS_SEARCH_PATH', 'data_platform') }}"
