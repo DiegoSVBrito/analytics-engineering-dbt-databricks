@@ -1,82 +1,111 @@
-# Data Full Stack - Portfolio de Projetos de Dados
+# Analytics Engineering - dbt + Databricks
 
-Portfólio completo de projetos end-to-end usando SQL, Python, dbt, Databricks e Snowflake. Inclui extração API/DW, modelagem de dados, pipelines ETL e dashboards. Construído para uso real, versionado com Git e focado em workflows analíticos limpos e escaláveis.
+Pipeline end-to-end de analytics implementando arquitetura medalhao (Bronze/Silver/Gold) com dbt no Databricks, orquestracao Airflow e CI/CD automatizado.
 
-## 📁 Estrutura dos Projetos
+## Arquitetura
 
-### Adventure Works Analytics
-**Localização:** `adventure-works-analytics/`
+```
+                    +------------------+
+                    |   Data Sources   |
+                    |  (AdventureWorks |
+                    |    SQL Server)   |
+                    +--------+---------+
+                             |
+                    +--------v---------+
+                    |     BRONZE       |
+                    |  Staging Models  |
+                    | (raw ingestion)  |
+                    +--------+---------+
+                             |
+                    +--------v---------+
+                    |      SILVER      |
+                    |  Intermediate    |
+                    | (business logic) |
+                    +--------+---------+
+                             |
+                    +--------v---------+
+                    |       GOLD       |
+                    |   Marts / DIM    |
+                    | (analytics-ready)|
+                    +--------+---------+
+                             |
+                    +--------v---------+
+                    |   Dashboards /   |
+                    |   Reports / BI   |
+                    +------------------+
 
-Pipeline completo de analytics do Adventure Works implementando arquitetura medalhão (Bronze → Silver → Gold) com dbt, incluindo:
+Orquestracao: Apache Airflow
+CI/CD: GitHub Actions
+Transformacao: dbt-core + dbt-databricks
+Storage: Databricks (Delta Lake)
+```
 
-- **5 Dimensões Analíticas Avançadas:**
-  - `dim_customers_enhanced`: Análise de Customer Lifetime Value (CLV) com segmentação VIP/Premium/Regular/Basic
-  - `dim_products_performance`: Análise do ciclo de vida de produtos (Crescimento/Maturidade/Declínio/Descontinuado)
-  - `dim_territories_performance`: Análise ROI territorial com rankings de eficiência
-  - `dim_channels_performance`: Análise de performance de canais (Online/Reseller)
-  - `dim_product_associations`: Market basket analysis com métricas lift/confidence/support
+## Dimensiones Analiticas
 
-- **Arquitetura Completa:**
-  - Staging models (Bronze): Limpeza e padronização de dados brutos
-  - Intermediate models (Silver): Lógica de negócio e joins
-  - Marts (Gold): Modelos prontos para análise de negócio
+| Modelo | Descricao |
+|--------|-----------|
+| `dim_customers_enhanced` | Customer Lifetime Value (CLV) com segmentacao VIP/Premium/Regular/Basic |
+| `dim_products_performance` | Ciclo de vida de produtos (Crescimento/Maturidade/Declinio/Descontinuado) |
+| `dim_territories_performance` | ROI territorial com rankings de eficiencia |
+| `dim_channels_performance` | Performance de canais (Online vs Reseller) |
+| `dim_product_associations` | Market basket analysis com metricas lift/confidence/support |
 
-- **Recursos Técnicos:**
-  - 45+ testes automatizados validados no Databricks
-  - CI/CD pipelines com GitHub Actions
-  - Orquestração com Apache Airflow
-  - Documentação completa em português
-  - Configuração Docker para deploy
+## Tecnologias
 
-**Tecnologias:** dbt, SQL, Databricks, Delta Lake, Apache Airflow, Docker, GitHub Actions
+- **dbt**: Transformacao e testes de dados
+- **Databricks**: Compute e storage (Delta Lake)
+- **Apache Airflow**: Orquestracao de pipelines
+- **GitHub Actions**: CI/CD automatizado
+- **Docker**: Containerizacao para deploy
+- **SQL**: Linguagem principal de transformacao
 
-## 🚀 Como Usar
-
-### Adventure Works Analytics
+## Como Executar
 
 ```bash
-# Navegar para o projeto
-cd adventure-works-analytics/
-
-# Instalar dependências dbt
+# Instalar dependencias
+pip install dbt-databricks
 dbt deps
 
 # Executar modelos
 dbt run
 
-# Executar testes
+# Executar 45+ testes automatizados
 dbt test
 
-# Gerar documentação
+# Gerar documentacao
 dbt docs generate && dbt docs serve
 ```
 
-## 📊 Resultados de Negócio
+## Decisoes Tecnicas
 
-### Adventure Works Analytics
-- **Customer Analytics**: Segmentação de clientes por CLV permitindo estratégias direcionadas
-- **Product Analytics**: Identificação de produtos em declínio para otimização de catálogo
-- **Territory Analytics**: Rankings de ROI por território para otimização de vendas
-- **Channel Analytics**: Comparação de performance Online vs Reseller
-- **Market Basket**: Análise de associação de produtos para cross-selling
+**Por que dbt + Databricks?** O dbt permite versionar transformacoes SQL com testes e documentacao automatica. O Databricks fornece compute elástico com Delta Lake para armazenamento transacional. A combinacao elimina a necessidade de ETL manual e garante rastreabilidade completa da linhagem dos dados.
 
-## 🏗️ Histórico de Migração
+**Por que arquitetura medalhao?** Separa claramente as camadas de responsabilidade. Bronze recebe dados brutos sem transformacao (garantindo reprocessabilidade). Silver aplica regras de negocio. Gold serve modelos prontos para consumo por ferramentas de BI. Cada camada pode ser reprocessada independentemente.
 
-Este repositório consolida projetos de dados que anteriormente estavam em repositórios separados:
-- Projeto Adventure Works Analytics migrado em Julho 2025
-- Estrutura reorganizada para portfolio unificado
-- Documentação padronizada em português
-- CI/CD pipelines atualizados
+**Por que GitHub Actions?** Cada push dispara testes automaticos que validam os modelos dbt. Se um modelo quebra, o PR e bloqueado. Isso garante que somente transformacoes validas chegam ao ambiente de producao.
 
-## 📝 Próximos Projetos
+## Estrutura do Repositorio
 
-- [ ] Projeto Snowflake Data Warehouse
-- [ ] Pipeline Python ETL com Apache Spark
-- [ ] Dashboard Tableau/Power BI
-- [ ] ML Pipeline para Customer Churn
+```
+adventure-works-analytics/
+  models/
+    staging/         # Camada Bronze
+    intermediate/    # Camada Silver
+    marts/           # Camada Gold
+  tests/             # Testes customizados dbt
+  analyses/          # Queries analíticas ad-hoc
+  orchestration/     # DAGs Airflow
+  dbt_project.yml    # Configuracao do projeto
+```
+
+## Resultados de Negocio
+
+- **Customer Analytics**: Segmentacao por CLV para estrategias de retencao
+- **Product Analytics**: Identificacao de produtos em declinio para otimizacao de catalogo
+- **Territory Analytics**: Rankings de ROI por territorio
+- **Channel Analytics**: Comparacao Online vs Reseller
+- **Market Basket**: Associacao de produtos para cross-selling
 
 ---
 
-**Autor:** Diego Brito  
-**Data:** Julho 2025  
-**Tecnologias:** SQL, Python, dbt, Databricks, Snowflake, Apache Airflow, Docker, GitHub Actions
+**Autor:** Diego Brito
