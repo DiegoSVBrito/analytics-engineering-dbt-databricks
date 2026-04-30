@@ -1,8 +1,8 @@
 # Analytics Engineering - dbt + Databricks
 
-Pipeline end-to-end de analytics implementando arquitetura medalhao (Bronze/Silver/Gold) com dbt no Databricks, orquestracao Airflow e CI/CD automatizado.
+End-to-end analytics pipeline implementing medallion architecture (Bronze/Silver/Gold) with dbt on Databricks, Airflow orchestration, and automated CI/CD.
 
-## Arquitetura
+## Architecture
 
 ```
                     +------------------+
@@ -34,78 +34,71 @@ Pipeline end-to-end de analytics implementando arquitetura medalhao (Bronze/Silv
                     |   Reports / BI   |
                     +------------------+
 
-Orquestracao: Apache Airflow
+Orchestration: Apache Airflow
 CI/CD: GitHub Actions
-Transformacao: dbt-core + dbt-databricks
+Transformation: dbt-core + dbt-databricks
 Storage: Databricks (Delta Lake)
 ```
 
-## Dimensiones Analiticas
+## Analytical Dimensions
 
-| Modelo | Descricao |
-|--------|-----------|
-| `dim_customers_enhanced` | Customer Lifetime Value (CLV) com segmentacao VIP/Premium/Regular/Basic |
-| `dim_products_performance` | Ciclo de vida de produtos (Crescimento/Maturidade/Declinio/Descontinuado) |
-| `dim_territories_performance` | ROI territorial com rankings de eficiencia |
-| `dim_channels_performance` | Performance de canais (Online vs Reseller) |
-| `dim_product_associations` | Market basket analysis com metricas lift/confidence/support |
+| Model | Description |
+|-------|-------------|
+| `dim_customers_enhanced` | Customer Lifetime Value (CLV) with VIP/Premium/Regular/Basic segmentation |
+| `dim_products_performance` | Product lifecycle analysis (Growth/Maturity/Decline/Discontinued) |
+| `dim_territories_performance` | Territory ROI with efficiency rankings |
+| `dim_channels_performance` | Channel performance (Online vs Reseller) |
+| `dim_product_associations` | Market basket analysis with lift/confidence/support metrics |
 
-## Tecnologias
+## Technologies
 
-- **dbt**: Transformacao e testes de dados
-- **Databricks**: Compute e storage (Delta Lake)
-- **Apache Airflow**: Orquestracao de pipelines
-- **GitHub Actions**: CI/CD automatizado
-- **Docker**: Containerizacao para deploy
-- **SQL**: Linguagem principal de transformacao
+- **dbt**: Data transformation and testing
+- **Databricks**: Compute and storage (Delta Lake)
+- **Apache Airflow**: Pipeline orchestration
+- **GitHub Actions**: Automated CI/CD
+- **Docker**: Containerized deployment
+- **SQL**: Primary transformation language
 
-## Como Executar
+## Usage
 
 ```bash
-# Instalar dependencias
 pip install dbt-databricks
 dbt deps
-
-# Executar modelos
 dbt run
-
-# Executar 45+ testes automatizados
 dbt test
-
-# Gerar documentacao
 dbt docs generate && dbt docs serve
 ```
 
-## Decisoes Tecnicas
+## Technical Decisions
 
-**Por que dbt + Databricks?** O dbt permite versionar transformacoes SQL com testes e documentacao automatica. O Databricks fornece compute elástico com Delta Lake para armazenamento transacional. A combinacao elimina a necessidade de ETL manual e garante rastreabilidade completa da linhagem dos dados.
+**Why dbt + Databricks?** dbt allows versioning SQL transformations with tests and automatic documentation. Databricks provides elastic compute with Delta Lake for transactional storage. The combination eliminates manual ETL and ensures full data lineage traceability.
 
-**Por que arquitetura medalhao?** Separa claramente as camadas de responsabilidade. Bronze recebe dados brutos sem transformacao (garantindo reprocessabilidade). Silver aplica regras de negocio. Gold serve modelos prontos para consumo por ferramentas de BI. Cada camada pode ser reprocessada independentemente.
+**Why medallion architecture?** Clearly separates layers of responsibility. Bronze ingests raw data without transformation (enabling reprocessing). Silver applies business rules. Gold serves analytics-ready models to BI tools. Each layer can be reprocessed independently.
 
-**Por que GitHub Actions?** Cada push dispara testes automaticos que validam os modelos dbt. Se um modelo quebra, o PR e bloqueado. Isso garante que somente transformacoes validas chegam ao ambiente de producao.
+**Why GitHub Actions?** Every push triggers automatic tests validating dbt models. If a model breaks, the PR is blocked. This ensures only valid transformations reach production.
 
-## Estrutura do Repositorio
+## Repository Structure
 
 ```
 adventure-works-analytics/
   models/
-    staging/         # Camada Bronze
-    intermediate/    # Camada Silver
-    marts/           # Camada Gold
-  tests/             # Testes customizados dbt
-  analyses/          # Queries analíticas ad-hoc
-  orchestration/     # DAGs Airflow
-  dbt_project.yml    # Configuracao do projeto
+    staging/         # Bronze layer
+    intermediate/    # Silver layer
+    marts/           # Gold layer
+  tests/             # Custom dbt tests
+  analyses/          # Ad-hoc analytical queries
+  orchestration/     # Airflow DAGs
+  dbt_project.yml    # Project configuration
 ```
 
-## Resultados de Negocio
+## Business Outcomes
 
-- **Customer Analytics**: Segmentacao por CLV para estrategias de retencao
-- **Product Analytics**: Identificacao de produtos em declinio para otimizacao de catalogo
-- **Territory Analytics**: Rankings de ROI por territorio
-- **Channel Analytics**: Comparacao Online vs Reseller
-- **Market Basket**: Associacao de produtos para cross-selling
+- **Customer Analytics**: CLV-based segmentation for retention strategies
+- **Product Analytics**: Declining product identification for catalog optimization
+- **Territory Analytics**: ROI rankings by territory
+- **Channel Analytics**: Online vs Reseller performance comparison
+- **Market Basket**: Product association for cross-selling
 
 ---
 
-**Autor:** Diego Brito
+Author: Diego Brito
