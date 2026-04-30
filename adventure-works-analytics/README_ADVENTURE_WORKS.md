@@ -75,9 +75,9 @@ adventure_works_analytics:
       type: databricks
       host: your-databricks-host.cloud.databricks.com
       http_path: /sql/1.0/warehouses/your_warehouse_id
-      token: your-databricks-token
-      catalog: ted_dev
-      schema: dev_diego_brito
+      token: ${DATABRICKS_TOKEN}
+      catalog: data_platform
+      schema: dev_user
       threads: 4
 ```
 
@@ -263,5 +263,4 @@ dbt debug
 Para dúvidas e suporte:
 - Documentação dbt: Acesse via `dbt docs serve`
 - Issues do projeto: GitHub Issues
-- Contato: analytics-team@aw.com
-
+- Contato: ${TEAM_EMAIL}
