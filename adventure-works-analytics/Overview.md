@@ -21,7 +21,7 @@ This is a **dbt (Data Build Tool)** project for Adventure Works analytics, imple
   - `sales/`: Sales analytics
 
 ### Data Sources
-- **adventure_works_dw**: Main data warehouse tables (database: `ted_dev`, schema: `dev_diego_brito`)
+- **adventure_works_dw**: Main data warehouse tables (database: `data_platform`, schema: `dev_user`)
 - **adventure_works_api**: Recent/validation data from API
 
 ### Naming Conventions
@@ -73,7 +73,7 @@ dbt run --select +model_name && dbt test --select model_name
 
 - **Profile**: `adventure_works_analytics`
 - **Target schema**: Uses `+schema` config (staging, intermediate, marts)
-- **Raw data variable**: `raw_schema: "ted_dev.dev_diego_brito"`
+- **Raw data variable**: `raw_schema: "data_platform.dev_user"`
 - **Materialization strategy**:
   - Staging: `view`
   - Intermediate: `view`
@@ -89,4 +89,4 @@ dbt run --select +model_name && dbt test --select model_name
 
 ## Environment Setup
 
-The project uses a virtual environment with dbt installed at `/home/diego/adventure-works-analytics/venv/bin/dbt`.
+The project uses a virtual environment with dbt installed at `/home/user/adventure-works-analytics/venv/bin/dbt`.
