@@ -24,7 +24,7 @@ default_args = {
     'owner': 'analytics-team',
     'depends_on_past': False,
     'start_date': datetime(2024, 1, 1),
-    'email': ['admin@adventureworks.com'],
+    'email': ['${ALERT_EMAIL}'],
     'email_on_failure': True,
     'email_on_retry': False,
     'retries': 2,
@@ -148,7 +148,7 @@ end_pipeline = PythonOperator(
 # Success notification
 success_notification = EmailOperator(
     task_id='success_notification',
-    to=['admin@adventureworks.com'],
+    to=['${ALERT_EMAIL}'],
     subject='Adventure Works Pipeline - SUCCESS',
     html_content="""
     <h3>Adventure Works Analytics Pipeline Completed Successfully</h3>
