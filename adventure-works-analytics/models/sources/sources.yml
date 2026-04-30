@@ -3,8 +3,8 @@ version: 2
 sources:
   - name: adventure_works_dw
     description: "Adventure Works Data Warehouse tables"
-    database: ted_dev
-    schema: dev_diego_brito
+    database: data_platform
+    schema: dev_user
     tables:
       # Sales Domain
       - name: raw_db_sales_salesorderheader
@@ -38,8 +38,8 @@ sources:
 
   - name: adventure_works_api
     description: "Adventure Works API data (recent/validation)"
-    database: ted_dev
-    schema: dev_diego_brito
+    database: data_platform
+    schema: dev_user
     tables:
       - name: raw_api_salesorderheader
         description: "Sales order header from API"
