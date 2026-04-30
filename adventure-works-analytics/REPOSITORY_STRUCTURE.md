@@ -1,6 +1,6 @@
 # Adventure Works Analytics - Repository Structure
 
-## ğŸ“ Directory Organization
+##  Directory Organization
 
 ```
 adventure-works-analytics/
@@ -167,7 +167,7 @@ adventure-works-analytics/
 â””â”€â”€ requirements.txt                   # Python dependencies (root level)
 ```
 
-## ğŸ“‹ File Descriptions
+## ‹ File Descriptions
 
 ### Core dbt Files
 - **`dbt_project.yml`**: Project configuration, model paths, and materialization settings
@@ -191,7 +191,7 @@ adventure-works-analytics/
 - **`.github/workflows/`**: Automated testing and deployment
 - **`scripts/`**: Utility scripts for setup and maintenance
 
-## ğŸ”§ Configuration Files
+## § Configuration Files
 
 ### Environment-Specific
 Each environment (dev/staging/prod) has its own:
@@ -204,7 +204,7 @@ Each environment (dev/staging/prod) has its own:
 - **`.pre-commit-config.yaml`**: Code quality checks
 - **GitHub templates**: Standardized PR and issue formats
 
-## ğŸ“Š Asset Organization
+## Š Asset Organization
 
 ### By Layer (Medallion Architecture)
 - **Bronze**: `staging/` - Raw data ingestion
